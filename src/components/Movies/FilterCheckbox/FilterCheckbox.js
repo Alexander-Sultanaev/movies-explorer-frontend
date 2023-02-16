@@ -13,7 +13,7 @@ const FilterCheckbox = () => {
     setFilterIsActive(!filterIsActive);
   };
   return (
-    <div className='filter-checkbox'>
+    <section className='filter-checkbox'>
       <div 
       onClick={handleToggle}
       className={`filter-checkbox__input-style ${filterIsActive ? "filter-checkbox__input-style-switch-on" : ""}`}>
@@ -26,7 +26,7 @@ const FilterCheckbox = () => {
         />
       </div>
       <label className='filter-checkbox__label'>Короткометражки</label>
-    </div>
+    </section>
   )
 }
 export default FilterCheckbox;

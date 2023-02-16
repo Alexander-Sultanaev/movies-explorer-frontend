@@ -78,6 +78,7 @@
   height: 44px;
   background: url(../../images/burger_icon.svg)no-repeat center;
   cursor: pointer;
+  border: none;
 }
 .navigation__burger:hover {
   opacity: 0.7;

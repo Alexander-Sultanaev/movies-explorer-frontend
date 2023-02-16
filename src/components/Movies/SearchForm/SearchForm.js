@@ -3,7 +3,7 @@ import './SearchForm.css';
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 function SearchForm() {
   return(
-    <div className="search-form">
+    <section className="search-form">
       <div className="search-form__container">
         <div className="search-form__icon"></div>
         <div className="search-form__container-input">
@@ -16,7 +16,7 @@ function SearchForm() {
         <FilterCheckbox />
       </div>
       <span className="search-form__span"></span>
-    </div>
+    </section>
   );
 };
 

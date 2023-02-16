@@ -6,15 +6,15 @@ function Navigation(props) {
   return (
     <>
       {location.pathname === '/' ?
-        <div className='navigation__auth'>
+        <nav className='navigation__auth'>
           <Link className='navigation__signup' to='/signup'>Регистрация</Link>
           <Link className='navigation__signin' to='/signin'>Войти</Link>
-        </div> : <></>
+        </nav> : <></>
       }
       {(location.pathname === '/profile' || 
         location.pathname === '/movies' ||
         location.pathname === '/saved-movies') ?
-          <div className='navigation__movies'>
+          <nav className='navigation__movies'>
             <div className='navigation__container'>
               <div className='navigation__container-movies'>
                 <Link className={`navigation__link ${location.pathname === '/movies' ?
@@ -27,10 +27,9 @@ function Navigation(props) {
                   <p className="navigation__text-profile">Аккаунт</p>
                 </Link>
             </div>
-              <div className="navigation__burger" type='button' onClick={props.openMenu}>
-              </div>
-          </div> : <></>
-          
+              <button className="navigation__burger" type='button' onClick={props.openMenu}>
+              </button>
+          </nav> : <></>
       }
     </>
     
