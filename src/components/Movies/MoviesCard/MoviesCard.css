@@ -1,0 +1,125 @@
+.movies-card {
+  display: grid;
+  grid-template-rows: 200px auto;
+  text-align: center;
+}
+.movies-card__container {
+  height: 201px;
+  max-width: 360px;
+  border-radius: 6px;
+  position: relative;
+}
+.movies-card__image {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  z-index: 3;
+}
+.movies-card__image:hover {
+ z-index: 2;
+}
+.movies-card__button {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 72px;
+  height: 21px;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 9px;
+  background-color: #313131;
+  color: #FFF;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  z-index: 2;
+}
+.movies-card__button:hover {
+  z-index: 4;
+}
+.movies-card__button_saved {
+  font-size: 0px;
+  position: absolute;
+  border: none;
+  top: 14px;
+  right: 14px;
+  width: 21px;
+  height: 21px;
+  z-index: 5;
+  background: url(../../../images/button_saved.svg);
+}
+.movies-card__button_delete {
+  position: absolute;
+  border: none;
+  top: 14px;
+  right: 14px;
+  width: 21px;
+  height: 21px;
+  z-index: 2;
+  background: url(../../../images/button_delete.svg);
+  cursor: pointer;
+}
+.movies-card__button_delete:hover {
+  z-index: 4;
+}
+.movies-card__wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  max-width: 360px;
+}
+.movies-card__title {
+  margin: 0;
+  padding: 0;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 16px;
+  color: #FFF;
+  margin: 14px;
+}
+.movies-card__time {
+  display: block;
+  margin: 0;
+  padding: 3px;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 10px;
+  color: #8B8B8B;
+  background: #2F2F2F;
+  border-radius: 3px;
+  margin: 14px;
+  width: 44px;
+  height: 12px;
+}
+@media screen and (max-width: 768px) {
+  .movies-card {
+    grid-template-rows: 190px auto;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+  .movies-card__container {
+    height: 100%;
+    max-width: 340px;
+  }
+}
+@media screen and (max-width: 430px) {
+  .movies-card {
+    grid-template-rows: 168px auto;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+  .movies-card__container {
+    height: 100%;
+    width: 300px;
+  }
+  .movies-card__title {
+    font-size: 12px;
+    line-height: 15px;
+  }
+  .movies-card__image {
+    width: 300px;
+  }
+}
