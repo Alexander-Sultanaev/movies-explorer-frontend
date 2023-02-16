@@ -33,6 +33,7 @@ function Register() {
   }
   const emailHandler = (e) => {
     setEmail(e.target.value)
+    // eslint-disable-next-line no-useless-escape
     const re = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
     if(!re.test(String(e.target.value).toLowerCase())) {
       setEmailError('Не верный формат почты')
