@@ -2,7 +2,7 @@ import React from "react";
 import Header from "../Header/Header";
 import './Profile.css';
 
-const Profile = ({ loggedIn }) => {
+const Profile = () => {
   const [name, setName] = React.useState('Имя')
   const [email, setEmail] = React.useState('pochta@yandex.ru')
 
@@ -16,7 +16,7 @@ const Profile = ({ loggedIn }) => {
     <section>
       <Header />
       <div className="profile">
-        <h1 className="profile__title">Привет, User</h1>
+        <h1 className="profile__title">Привет, {name}</h1>
         <form className="profile__form">
           <div className="profile__container">
             <label className="profile__label">Имя</label>
