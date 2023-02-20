@@ -17,7 +17,7 @@ function MoviesCard({ movie }) {
           className="movies-card__image"
         />
         {location.pathname === '/movies' ? 
-        <button className={`movies-card__button ${isSaved ? 'movies-card__button_saved' : ''}`}
+        <button className={`movies-card__button ${isSaved ? 'movies-card__button-saved' : ''}`}
         type='button' onClick={saveCard}>Сохранить</button> :
         <button className='movies-card__button-delete' type='button' />
         }

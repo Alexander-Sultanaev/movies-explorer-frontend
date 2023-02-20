@@ -38,7 +38,7 @@
 .movies-card__button:hover {
   z-index: 4;
 }
-.movies-card__button_saved {
+.movies-card__button-saved {
   font-size: 0px;
   position: absolute;
   border: none;

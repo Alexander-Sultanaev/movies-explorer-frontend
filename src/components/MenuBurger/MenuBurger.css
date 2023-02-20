@@ -51,7 +51,7 @@
 .menu__link:nth-child(1) {
   margin: 0;
 }
-.menu__link_active {
+.menu__link-active {
   border-bottom: 2px solid #FFF;
 }
 .menu__link:hover {
@@ -81,7 +81,7 @@
     width: 100%;
     height: calc(100% - 190px);
   }
-  .menu__link_active {
+  .menu__link-active {
     padding-bottom: 4px;
     border-bottom: 2px solid #FFF;
   }

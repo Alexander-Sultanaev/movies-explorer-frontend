@@ -18,9 +18,9 @@ function Navigation(props) {
             <div className='navigation__container'>
               <div className='navigation__container-movies'>
                 <Link className={`navigation__link ${location.pathname === '/movies' ?
-                  'navigation__link_active' : ''}`} to='/movies'>Фильмы</Link>
+                  'navigation__link-active' : ''}`} to='/movies'>Фильмы</Link>
                 <Link className={`navigation__link ${location.pathname === '/saved-movies' ?
-                  'navigation__link_active' : ''}`} to='/saved-movies'>Сохранённые фильмы</Link>
+                  'navigation__link-active' : ''}`} to='/saved-movies'>Сохранённые фильмы</Link>
               </div>
                 <Link className='navigation__link-profiles' to='/profile'>
                   <div className="navigation__icon"></div>

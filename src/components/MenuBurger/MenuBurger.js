@@ -13,10 +13,10 @@ function MenuBurger ({ isOpen, closeMenu }) {
         <button className='menu__button-close' onClick={handleClick}/>
         <div className='menu__container-link'>        
           <Link className='menu__link' to='/' onClick={handleClick}>Главная</Link>
-          <Link className={`menu__link ${location.pathname === '/movies' ?'menu__link_active' : ''}`} to='/movies'onClick={handleClick}>
+          <Link className={`menu__link ${location.pathname === '/movies' ?'menu__link-active' : ''}`} to='/movies'onClick={handleClick}>
             Фильмы
           </Link>
-          <Link className={`menu__link ${location.pathname === '/saved-movies' ? 'menu__link_active' : ''}`} to='/saved-movies'onClick={handleClick}>
+          <Link className={`menu__link ${location.pathname === '/saved-movies' ? 'menu__link-active' : ''}`} to='/saved-movies'onClick={handleClick}>
             Сохранённые фильмы
           </Link>
         </div>
