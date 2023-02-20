@@ -12,12 +12,14 @@ function Main({ loggedIn }) {
   return(
     <div className="page">
       <Header loggedIn={loggedIn}/>
-      <Promo />
-      <NavTab />
-      <AboutProject />
-      <Techs />
-      <AboutMe />
-      <Portfolio />
+      <main>
+        <Promo />
+        <NavTab />
+        <AboutProject />
+        <Techs />
+        <AboutMe />
+        <Portfolio />
+      </main>
       <Footer />
     </div>
   );

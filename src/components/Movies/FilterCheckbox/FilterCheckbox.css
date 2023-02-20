@@ -28,6 +28,7 @@
   transition-duration: 300ms;
   position: absolute;
   z-index: 1;
+  cursor: pointer;
 }
 .filter-checkbox__input-style-switch-on {
   background: #3DDC84;

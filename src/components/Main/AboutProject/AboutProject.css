@@ -12,13 +12,13 @@
   padding-bottom: 23px;
   border-bottom: 1px solid #DADADA;
 }
-.project__container {
+.project__content {
   width: 100%;
   gap: 30px;
   display: flex;
   flex-direction: row;
 }
-.project__container:last-child {
+.project__content:last-child {
   gap: 0px;
 }
 .project__subtitle {
@@ -100,11 +100,11 @@
     line-height: 22px;
     padding-bottom: 28px;
   }
-  .project__container {
+  .project__content {
     flex-direction: column;
     gap: 0;
   }
-  .project__container:last-child {
+  .project__content:last-child {
     flex-direction: row;
   }
   .project__subtitle {

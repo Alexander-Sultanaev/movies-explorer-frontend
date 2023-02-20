@@ -16,9 +16,7 @@
   list-style: none;
 }
 .portfolio__element {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+
   border-bottom: 1px solid #424242;
   padding: 20px 0px;
 }
@@ -27,12 +25,18 @@
   padding-bottom: 0px;
 }
 .portfolio__link{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   color: #FFF;
   text-decoration: none;
   transition: 0.5s;
   font-weight: 400;
   font-size: 30px;
   line-height: 50px;
+}
+.portfolio__text {
+  margin: 0;
 }
 .portfolio__link:hover{
   opacity: 0.7;
@@ -73,7 +77,7 @@
     font-size: 14px;
   }
   .portfolio__list {
-    padding: 40px 0px 0px;
+    padding: 20px 0px 0px;
   }
   .portfolio__element {
     border-bottom: 1px solid #E6E6E6;

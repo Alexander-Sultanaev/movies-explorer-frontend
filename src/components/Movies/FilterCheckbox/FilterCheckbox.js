@@ -23,6 +23,7 @@ const FilterCheckbox = () => {
           id="checkbox"
           checked={isChecked}
           onChange={checkHandler}
+          required
         />
       </div>
       <label className='filter-checkbox__label'>Короткометражки</label>

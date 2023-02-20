@@ -6,13 +6,13 @@ function SearchForm() {
     <section className="search-form">
       <div className="search-form__container">
         <div className="search-form__icon"></div>
-        <div className="search-form__container-input">
+        <form className="search-form__form">
           <input
             placeholder="Фильм"
             className="search-form__input"
           />
           <button className="search-form__button" type="submit">Найти</button>
-        </div>
+        </form>
         <FilterCheckbox />
       </div>
       <span className="search-form__span"></span>

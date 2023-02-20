@@ -21,6 +21,7 @@ function Login() {
 
   const emailHandler = (e) => {
     setEmail(e.target.value)
+    // eslint-disable-next-line no-useless-escape
     const re = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
     if(!re.test(String(e.target.value).toLowerCase())) {
       setEmailError('Что-то пошло не так...')
@@ -54,7 +55,7 @@ function Login() {
 
   return(
     <div className="login">
-      <Link className="login__logo" to='/'></Link>
+      <Link className="login__icon" to='/'></Link>
       <h1 className="login__title">Рады видеть!</h1>
       <form className="login__form">
         <label className="login__label">E-mail</label>
@@ -62,7 +63,7 @@ function Login() {
           value={email}
           onChange={e => emailHandler(e)}
           onBlur={e => blurHandle(e)}
-          className={`login__input ${emailError ? 'login__input_error' : ''}`}
+          className={`login__input ${emailError ? 'login__input-error' : ''}`}
           name="email"
           type="text"
           placeholder=""
@@ -73,7 +74,7 @@ function Login() {
           value={password}
           onChange={e => passwordHandler(e)}
           onBlur={e => blurHandle(e)}
-          className={`login__input ${passwordError ? 'login__input_error' : ''}`}
+          className={`login__input ${passwordError ? 'login__input-error' : ''}`}
           name="password"
           type="password"
           placeholder=""

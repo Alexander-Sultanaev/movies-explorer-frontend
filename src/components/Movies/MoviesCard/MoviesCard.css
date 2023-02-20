@@ -49,7 +49,7 @@
   z-index: 5;
   background: url(../../../images/button_saved.svg);
 }
-.movies-card__button_delete {
+.movies-card__button-delete {
   position: absolute;
   border: none;
   top: 14px;
@@ -60,7 +60,7 @@
   background: url(../../../images/button_delete.svg);
   cursor: pointer;
 }
-.movies-card__button_delete:hover {
+.movies-card__button-delete:hover {
   z-index: 4;
 }
 .movies-card__wrapper {
