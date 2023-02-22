@@ -105,8 +105,8 @@ function Movies() {
   return(
     <div className="page">
       <Header />
-      <SearchForm />
-      <MoviesCardList isSavedMoviesPage={false} movies={movies} />
+        <SearchForm />
+        <MoviesCardList isSavedMoviesPage={false} movies={movies} />
       <Footer />
     </div>
   );
