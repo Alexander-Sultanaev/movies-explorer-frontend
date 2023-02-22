@@ -76,13 +76,13 @@
     padding: 154px 0px 110px;
    }
    .search-form__container {
-    grid-template-columns: 63px auto 200px;
+    grid-template-columns: 53px auto 190px;
    }
 }
 @media screen and (max-width: 430px) {
   .search-form {
     padding: 72px 0px 0px;
-    max-width: 300px;
+    max-width: 295px;
     height: 272px;
    }
    .search-form__container {
