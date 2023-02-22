@@ -77,6 +77,9 @@
     padding: 154px 0px 110px;
     max-width: 710px;
    }
+   .search-form__container {
+    grid-template-columns: 63px auto 200px;
+   }
 }
 @media screen and (max-width: 430px) {
   .search-form {

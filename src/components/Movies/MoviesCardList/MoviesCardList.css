@@ -1,6 +1,6 @@
 .movies-list {
   padding: 80px 0px 80px;
-  max-width: 1280px;
+  max-width: calc(100% - 40px *2);
   margin: 0 auto;
   text-align: center;
 }
@@ -34,8 +34,6 @@
 }
 @media screen and (max-width: 1100px) {
   .movies-list__grid{
-    max-width: 1080px;
-    padding-left: 70px;
     grid-template-columns: repeat(auto-fill,minmax(340px, 1fr));
   }
 }
@@ -51,6 +49,10 @@
   }
 }
 @media screen and (max-width: 705px) {
+  .movies-list {
+    padding: 80px 0px 80px;
+    max-width: calc(100% -20px *2);
+  }
   .movies-list__grid{
     padding: 50px 0px 50px;
     max-width: 300px;
