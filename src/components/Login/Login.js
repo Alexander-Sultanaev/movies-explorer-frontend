@@ -9,7 +9,7 @@ function Login() {
   const [ passwordDirty, setPasswordDirty ] = useState(false);
   const [ emailError, setEmailError ] = useState('Поле не может быть пустым');
   const [ passwordError, setPasswordError ] = useState('Поле не может быть пустым');
-  const [formValid, setFormValid] = useState(false);
+  const [ formValid, setFormValid ] = useState(false);
 
   useEffect( () => {
     if (emailError || passwordError) {

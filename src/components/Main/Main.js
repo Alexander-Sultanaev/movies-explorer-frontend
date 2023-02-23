@@ -10,18 +10,16 @@ import Portfolio from "../Main/Portfolio/Portfolio.js";
 
 function Main({ loggedIn }) {
   return(
-    <div className="page">
+    <main className="page">
       <Header loggedIn={loggedIn}/>
-      <main>
         <Promo />
         <NavTab />
         <AboutProject />
         <Techs />
         <AboutMe />
         <Portfolio />
-      </main>
       <Footer />
-    </div>
+    </main>
   );
 };
 
