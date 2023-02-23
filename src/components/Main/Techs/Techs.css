@@ -1,0 +1,107 @@
+.techs {
+  padding: 100px 70px;
+  color: #FFF;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.techs__title {
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 27px;
+  margin: 0;
+  padding-bottom: 23px;
+  border-bottom: 1px solid #DADADA;
+}
+.techs__subtitle {
+  text-align: center;
+  margin: 0;
+  padding-top: 90px;
+  font-weight: 400;
+  font-size: 50px;
+  line-height: 58px;
+}
+.techs__text {
+  text-align: center;
+  margin: 0 auto;
+  max-width: 460px;
+  padding-top: 26px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+}
+.techs__container {
+  margin: 0 auto;
+  padding-top: 100px;
+  max-width: 700px;
+}
+.techs__lists {
+  list-style: none;
+  margin: 0;
+  padding: 0px;
+  display: grid;
+  grid-template: auto / repeat(auto-fit,minmax(90px, 1fr));
+  gap: 10px;
+}
+.techs__element {
+  display: block;
+  width: 100%;
+  text-align: center;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  padding: 22px 0px;
+  background: #303030;
+  border-radius: 10px;
+}
+@media screen and (max-width: 768px) {
+  .techs {
+    padding: 90px 50px;
+  }
+  .techs__subtitle {
+    padding-top: 60px;
+    font-size: 30px;
+    line-height: 36px;
+  }
+  .techs__text {
+    padding-top: 22px;
+    font-size: 12px;
+    line-height: 18px;
+  }
+  .techs__container {
+    padding-top: 83px;
+    max-width: 650px;
+  }
+  .techs__lists {
+    font-size: 12px;
+    line-height: 15px;
+    grid-template: auto / repeat(auto-fit,minmax(80px, 1fr));
+  }
+}
+@media screen and (max-width: 430px) {
+  .techs {
+    padding: 70px 18px;
+  }
+  .techs__title {
+    font-size: 18px;
+    line-height: 22px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid #000;
+  }
+  .techs__subtitle {
+    padding-top: 60px;
+  }
+  .techs__text {
+    padding-top: 24px;
+    font-size: 11px;
+    line-height: 16px;
+  }
+  .techs__container {
+    padding-top: 50px;
+    max-width: 180px;
+  }
+  .techs__lists {
+    font-size: 12px;
+    line-height: 15px;
+    grid-template: auto / repeat(auto-fit,minmax(85px, 1fr));
+  }
+}

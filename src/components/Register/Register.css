@@ -1,0 +1,130 @@
+.register {
+  margin: 0 auto;
+  max-width: 400px;
+  padding-top: 70px;
+  color: #FFF;
+  display: flex;
+  flex-direction: column;
+}
+.register__logo {
+  width: 38px;
+  height: 38px;
+  background: url(../../images/header__logo.svg);
+}
+.register__title {
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 29px;
+  margin: 0;
+  padding: 40px 0px 16px;
+}
+.register__form {
+  display: flex;
+  flex-direction: column;
+}
+.register__label {
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 12px;
+  color: #8B8B8B;
+  padding: 24px 0px 5px;
+}
+.register__input {
+  border: none;
+  border-bottom: 1px solid #424242;
+  background-color: #202020;
+  color: #FFF;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  padding-bottom: 10px;
+  outline-style: none;
+}
+.register__button {
+  margin-top: 134px;
+  height: 45px;
+  background: #4285F4;
+  border-radius: 3px;
+  border: none;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  color: #FFF;
+  cursor: pointer;
+}
+.register__button:hover{
+  opacity: 0.8;
+}
+.register__button:active{
+  box-shadow: 0px 0px 2px #4285F4;
+}
+.register__container{
+  padding-top: 16px;
+  text-align: center;
+  margin: 0;
+}
+.register__span {
+  display: inline;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+}
+.register__link {
+  display: inline;
+  padding-left: 6px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: #4285F4;
+  cursor: pointer;
+  text-decoration: none;
+}
+.register__link:hover{
+  opacity: 0.8;
+}
+.register__error {
+  color: #EE3465;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 12px;
+  padding-top: 6px;
+}
+.register__input_error {
+  color: #EE3465;
+}
+@media screen and (max-width: 430px) {
+  .register {
+    max-width: 260px;
+    padding-top: 56px;
+  }
+  .register__logo {
+    width: 38px;
+    height: 38px;
+    margin: 0 auto;
+  }
+  .register__title {
+    text-align: center;
+    padding: 50px 0px 56px;
+  }
+  .register__input {
+    font-weight: 400;
+  }
+  .register__button {
+    margin-top: 222px;
+    font-size: 12px;
+    line-height: 15px;
+  }
+  .register__container{
+    padding-top: 14px;
+    text-align: center;
+    margin: 0;
+  }
+  .register__span {
+    font-size: 12px;
+    line-height: 15px;
+  }
+  .register__link {
+    font-size: 12px;
+    line-height: 15px;
+  }
+}
