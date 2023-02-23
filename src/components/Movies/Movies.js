@@ -103,7 +103,7 @@ const movies = [
 ];
 function Movies() {
   return(
-    <div className="page">
+    <div className="movies">
       <Header />
         <SearchForm />
         <MoviesCardList isSavedMoviesPage={false} movies={movies} />
