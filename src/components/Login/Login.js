@@ -1,8 +1,8 @@
 import {useState, useEffect} from "react";
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import './Login.css';
 
-function Login() {
+function Login( { handleLogin, loggedIn, errorMessage }) {
   const [ email, setEmail ] = useState('');
   const [ password, setPassword ] = useState('');
   const [ emailDirty, setEmailDirty ] = useState(false);
@@ -53,11 +53,20 @@ function Login() {
     };
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    handleLogin(email, password)
+    if (loggedIn) {
+      return (
+        <Navigate to='/'/>
+      )
+    }
+  }
   return(
     <div className="login">
       <Link className="login__icon" to='/'></Link>
       <h1 className="login__title">Рады видеть!</h1>
-      <form className="login__form">
+      <form className="login__form" onSubmit={handleSubmit}>
         <label className="login__label">E-mail</label>
         <input 
           value={email}
@@ -80,7 +89,8 @@ function Login() {
           placeholder=""
         />
         {(passwordDirty && passwordError) && <span className="login__error">{passwordError}</span>}
-        <button disabled={!formValid} className="login__button" type="submit">Зарегистрироваться</button>
+        <span className="login__form-error">{errorMessage}</span>
+        <button disabled={!formValid} className={`login__button ${!formValid ? 'login__button-disable' : ''}`} type="submit">Войти</button>
       </form>
       <div className='login__container'>
         <span className="login__span">Ещё не зарегистрированы?</span>

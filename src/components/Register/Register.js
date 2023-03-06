@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import './Register.css';
 
-function Register() {
+function Register({ errorMessage, loggedIn, handleRegister }) {
   const [ name, setName ] = useState('');
   const [ email, setEmail ] = useState('');
   const [ password, setPassword ] = useState('');
@@ -12,7 +12,7 @@ function Register() {
   const [ nameError, setNameError ] = useState('Поле не может быть пустым');
   const [ emailError, setEmailError ] = useState('Поле не может быть пустым');
   const [ passwordError, setPasswordError ] = useState('Поле не может быть пустым');
-  const [formValid, setFormValid] = useState(false);
+  const [ formValid, setFormValid ] = useState(false);
   useEffect( () => {
     if (nameError || emailError || passwordError) {
       setFormValid(false)
@@ -21,12 +21,15 @@ function Register() {
     }
   }, [nameError, emailError, passwordError]);
   const nameHandler = (e) => {
+    const validName = /^[a-zA-Zа-яА-Я- ]+$/.test(e.target.value);
     setName(e.target.value)
     if(e.target.value.length < 2) {
       setNameError('Длина имени должна быть не менее 2 символов')
       if(!e.target.value) {
         setNameError('Поле не может быть пустым')
       }
+    } else if(!validName) {
+      setNameError('поле может содержать только латиницу, кириллицу, пробел или дефис.')
     } else {
       setNameError('')
     }
@@ -67,12 +70,22 @@ function Register() {
         break;
     };
   };
+  
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    handleRegister(email, password, name)
+    if (loggedIn) {
+      return (
+        <Navigate to='/'/>
+      )
+    }
+  }
 
   return(
     <div className="register">
       <Link className="register__logo" to='/'></Link>
       <h1 className="register__title">Добро пожаловать!</h1>
-      <form className="register__form">
+      <form className="register__form" onSubmit={handleSubmit}>
         <label className="register__label">Имя</label>
         <input
           onChange={e => nameHandler(e)} 
@@ -106,7 +119,8 @@ function Register() {
           onBlur={e => blurHandle(e)}
         />
         {(passwordDirty && passwordError) && <span className="register__error">{passwordError}</span>}
-        <button disabled={!formValid} className="register__button" type="submit">Зарегистрироваться</button>
+        <span className="register__form-error">{errorMessage}</span>
+        <button disabled={!formValid} className={`register__button ${!formValid ? 'register__button-disable' : ''}`} type="submit">Зарегистрироваться</button>
       </form>
       <div className='register__container'>
         <span className="register__span">Уже зарегистрированы?</span>

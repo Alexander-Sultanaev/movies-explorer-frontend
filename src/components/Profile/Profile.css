@@ -66,6 +66,35 @@
 .profile__button:hover {
   opacity: 0.7;
 }
+
+.profile__error {
+  color: #EE3465;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 12px;
+  padding-top: 6px;
+}
+.profile__form-error {
+  position: absolute;
+  top: 310px;
+  text-align: center;
+  display: block;
+  width: 100%;
+  height: auto;
+  color: #EE3465;
+}
+.profile__input_error {
+  color: #EE3465;
+}
+.profile__button-disable {
+  cursor: not-allowed;
+}
+.profile__button-disable:hover {
+  opacity: 1;
+}
+.profile__button-disable:active{
+  box-shadow: none;
+}
 @media screen and (max-width: 430px) {
   .profile {
     width: 210px;
