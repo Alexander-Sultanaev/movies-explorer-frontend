@@ -4,7 +4,7 @@ import './Header.css';
 import Navigation from "../Navigation/Navigation";
 import MenuBurger from "../MenuBurger/MenuBurger";
 
-const Header = () => {
+const Header = ({ loggedIn }) => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   function openMenu() {
     setIsMenuOpen(true);
@@ -16,7 +16,7 @@ const Header = () => {
       <header className="header">
         <div className="header__container">
           <Link className="header__logo" to='/'></Link>
-          <Navigation openMenu={openMenu}/>
+          <Navigation openMenu={openMenu} loggedIn={loggedIn} />
           <MenuBurger isOpen={isMenuOpen} closeMenu={closeMenu} />
         </div>
       </header>

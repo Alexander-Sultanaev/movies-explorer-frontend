@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
 import './App.css';
+import Header from "../Header/Header.js"
 import Main from "../Main/Main.js";
 import Register from "../Register/Register.js";
 import Login from "../Login/Login.js";
@@ -9,7 +10,7 @@ import Movies from "../Movies/Movies";
 import SavedMovies from "../SavedMovies/SavedMovies";
 import Profile from "../Profile/Profile";
 import PageNotFound from "../PageNotFound/PageNotFound";
-import ProtectedRoutes from "../ProtectedRoutes/ProtectedRoutes";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import mainApi from "../../utils/MainApi";
 
 function App() {
@@ -63,15 +64,39 @@ function App() {
   return(
     <CurrentUserContext.Provider value={currentUser}>
     <div className="page">
-      <Routes>
-        <Route element={<ProtectedRoutes loggedIn={loggedIn}/>}>
-          <Route exact path='/movies' element={<Movies/>}/>
-          <Route exact path='/saved-movies' element={<SavedMovies/>}/>
-          <Route exact path='/profile' element={<Profile/>} errorMessage={errorMessage} onLogout={handleLogout}/>
-        </Route>
-        <Route exact path='/' element={<Main/>}/>
-        <Route exact path='/signup' element={<Register handleRegister={handleRegister} errorMessage={errorMessage}/>}/>
-        <Route exact path='/signin' element={<Login handleLogin={handleLogin} errorMessage={errorMessage}/>}/>
+      <Routes >
+          <Route path="/" element={
+            <Main loggedIn={loggedIn}/>
+          } />
+          <Route path="/movies" element={
+            <ProtectedRoute loggedIn={loggedIn}>
+              <Movies 
+                loggedIn={loggedIn}
+              />
+            </ProtectedRoute>
+          } />
+          <Route path="/saved-movies" element={
+            <ProtectedRoute loggedIn={loggedIn}>
+              <SavedMovies 
+                loggedIn={loggedIn}
+              />
+            </ProtectedRoute>
+          } />
+          <Route path="/profile" element={
+            <ProtectedRoute loggedIn={loggedIn}>
+              <Profile 
+                handleLogout={handleLogout}
+                errorMessage={errorMessage}
+                loggedIn={loggedIn}
+              />
+            </ProtectedRoute>
+          } />
+          <Route path="/signin" element={
+            <Login handleLogin={handleLogin} errorMessage={errorMessage} loggedIn={loggedIn} />
+          } />
+          <Route path="/signup" element={
+            <Register handleRegister={handleRegister} errorMessage={errorMessage} loggedIn={loggedIn} />
+          } />
         <Route exact path='*' element={<PageNotFound/>}/>
       </Routes>
     </div>

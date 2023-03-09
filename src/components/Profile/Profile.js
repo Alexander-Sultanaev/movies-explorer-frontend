@@ -3,7 +3,7 @@ import { CurrentUserContext } from "../../context/CurrentUserContext";
 import Header from "../Header/Header";
 import './Profile.css';
 
-const Profile = ({ onLogout }) => {
+const Profile = ({ handleLogout, loggedIn }) => {
   const currentUser = useContext(CurrentUserContext);
   const [ name, setName ] = useState(currentUser.name)
   const [ email, setEmail ] = useState(currentUser.email)
@@ -68,7 +68,7 @@ const Profile = ({ onLogout }) => {
 
   return (
     <section>
-      <Header />
+      <Header loggedIn={loggedIn}/>
       <div className="profile">
         <h1 className="profile__title">Привет, {name}</h1>
         <form className="profile__form" >
@@ -106,7 +106,7 @@ const Profile = ({ onLogout }) => {
           className={`profile__button profile__button-edit ${!formValid ? 'profile__button-disable' : ''}`} 
           type="submit"
           disabled={!formValid}>Редактировать</button>
-        <button className="profile__button profile__button-logout" onClick={onLogout} type="button" >Выйти из аккаунта</button>
+        <button className="profile__button profile__button-logout" onClick={handleLogout}>Выйти из аккаунта</button>
       </div>
     </section>
   );

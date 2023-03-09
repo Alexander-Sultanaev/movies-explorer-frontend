@@ -29,10 +29,10 @@ const savedMovies = [
     saved: true
   },
 ];
-function SavedMovies() {
+function SavedMovies({ loggedIn }) {
   return(
     <div className="page">
-      <Header />
+      <Header loggedIn={loggedIn}/>
       <SearchForm />
       <MoviesCardList isSavedMoviesPage={true} movies={savedMovies}/>
       <Footer />

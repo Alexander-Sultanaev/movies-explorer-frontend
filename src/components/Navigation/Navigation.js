@@ -1,19 +1,21 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import './Navigation.css';
-function Navigation(props) {
+function Navigation({ openMenu, loggedIn}) {
+  console.log(loggedIn)
   const location = useLocation();
   return (
     <>
-      {location.pathname === '/' ?
+      {location.pathname === '/' && loggedIn === false ?
         <nav className='navigation__auth'>
           <Link className='navigation__signup' to='/signup'>Регистрация</Link>
           <Link className='navigation__signin' to='/signin'>Войти</Link>
         </nav> : <></>
       }
-      {(location.pathname === '/profile' || 
+      {(location.pathname === '/' ||
+        location.pathname === '/profile' || 
         location.pathname === '/movies' ||
-        location.pathname === '/saved-movies') ?
+        location.pathname === '/saved-movies') && loggedIn === true ?
           <nav className='navigation__movies'>
             <div className='navigation__container'>
               <div className='navigation__container-movies'>
@@ -27,7 +29,7 @@ function Navigation(props) {
                   <p className="navigation__text-profile">Аккаунт</p>
                 </Link>
             </div>
-              <button className="navigation__burger" type='button' onClick={props.openMenu}>
+              <button className="navigation__burger" type='button' onClick={openMenu}>
               </button>
           </nav> : <></>
       }

@@ -101,10 +101,10 @@ const movies = [
     saved: false
   },
 ];
-function Movies() {
+function Movies({ loggedIn }) {
   return(
     <div className="movies">
-      <Header />
+      <Header loggedIn={loggedIn}/>
         <SearchForm />
         <MoviesCardList isSavedMoviesPage={false} movies={movies} />
       <Footer />
