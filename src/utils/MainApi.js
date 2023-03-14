@@ -38,16 +38,17 @@ class MainApi {
     })
     .then(res => this._checkResponse(res))
   }
-  setUserInfo(email, name) {
+  updateUserInfo = async (name, email, jwt) => {
     return fetch(`${this._url}/users/me`, {
       method: 'PATCH',
-      headers: this._headers,
-      body: JSON.stringify({ email, name})
-    })
-    .then(res => this._checkResponse(res))
-  }
+      headers: {
+        ...this._headers,
+        'Authorization': `Bearer ${jwt}`,
+      },
+      body: JSON.stringify({name, email}),
+    }).then((res) => this._checkResponse(res));
+  };
 }
-
 const mainApi = new MainApi({
   url: BASE_URL,
   headers: {

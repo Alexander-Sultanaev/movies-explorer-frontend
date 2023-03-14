@@ -2,7 +2,6 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import './Navigation.css';
 function Navigation({ openMenu, loggedIn}) {
-  console.log(loggedIn)
   const location = useLocation();
   return (
     <>

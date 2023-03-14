@@ -3,7 +3,7 @@ import { CurrentUserContext } from "../../context/CurrentUserContext";
 import Header from "../Header/Header";
 import './Profile.css';
 
-const Profile = ({ handleLogout, loggedIn }) => {
+const Profile = ({ handleLogout, loggedIn, handleUpdateUser }) => {
   const currentUser = useContext(CurrentUserContext);
   const [ name, setName ] = useState(currentUser.name)
   const [ email, setEmail ] = useState(currentUser.email)
@@ -17,7 +17,7 @@ const Profile = ({ handleLogout, loggedIn }) => {
     if (nameError || emailError) {
       setFormValid(false)
     } else {
-      setFormValid(true)
+      setFormValid(true) 
     }
   }, [ nameError, emailError ]);
 
@@ -47,7 +47,7 @@ const Profile = ({ handleLogout, loggedIn }) => {
       }
     } else {
       setEmailError('')
-    }
+    } 
   }
 
   const blurHandle = (e) => {
@@ -62,24 +62,26 @@ const Profile = ({ handleLogout, loggedIn }) => {
     };
   };
 
-  const handleSubmit = (e) => {
+  const handlerSubmit = (e) => {
     e.preventDefault();
-  }
+    handleUpdateUser(name, email)
+    setName(name);
+    setEmail(email);
+  };
 
   return (
     <section>
       <Header loggedIn={loggedIn}/>
       <div className="profile">
-        <h1 className="profile__title">Привет, {name}</h1>
+        <h1 className="profile__title">Привет, {currentUser.name}</h1>
         <form className="profile__form" >
           <div className="profile__container">
             <label className="profile__label">Имя</label>
             <input
-              onSubmit={handleSubmit}
               className={`profile__input ${nameError ? 'profile__input_error' : ''}`}
               required
               type='text'
-              value={name}
+              value={name || ''}
               name="name"
               onChange={e => nameHandler(e)}
               onBlur={e => blurHandle(e)}
@@ -104,7 +106,7 @@ const Profile = ({ handleLogout, loggedIn }) => {
         </form>
         <button 
           className={`profile__button profile__button-edit ${!formValid ? 'profile__button-disable' : ''}`} 
-          type="submit"
+          onClick={handlerSubmit}
           disabled={!formValid}>Редактировать</button>
         <button className="profile__button profile__button-logout" onClick={handleLogout}>Выйти из аккаунта</button>
       </div>
