@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
 import './App.css';
 
@@ -19,6 +19,11 @@ function App() {
   const [ errorMessage, setErrorMessage ] = useState(false);
   const [ confirmMessage, setConfirmMessage ] =useState('')
   const navigate = useNavigate();
+
+  useEffect(() => {
+    tokenCheck()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loggedIn]);
 
   const handleLogin = (email, password) => {
     mainApi.login(email, password)
@@ -77,6 +82,20 @@ function App() {
         } else{
           setErrorMessage('При обновлении профиля произошла ошибка.');
         }
+      })
+  };
+
+  const tokenCheck = () => {
+    const jwt = localStorage.getItem('jwt');
+    const path = useLocation.path;
+    mainApi.getContent(jwt)
+      .then((data) => {
+        setLoggedIn(true)
+        setCurrentUser(data)
+        navigate(path)
+      })
+      .catch((err) => {
+        console.log(err)
       })
   };
 
