@@ -18,6 +18,8 @@ function App() {
   const [ loggedIn, setLoggedIn ] = useState(false);
   const [ errorMessage, setErrorMessage ] = useState(false);
   const [ confirmMessage, setConfirmMessage ] =useState('')
+  const [ isLoading, setIsLoading ] = useState(false);
+  const [ savedMovies, setSavedMovies ] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -31,14 +33,19 @@ function App() {
         setLoggedIn(true)
         localStorage.setItem('jwt', jwt.token);
         navigate('/movies')
-        Promise.all([mainApi.getContent(jwt.token)])
-          .then(([user]) => {
+        Promise.all([mainApi.getContent(jwt.token), mainApi.getSavedMovies(jwt.token)])
+          .then(([user, movies]) => {
             setCurrentUser(user)
+            localStorage.setItem('savedMovies', JSON.stringify(movies));
+            setSavedMovies(movies);
           })
     })
     .catch((err) => {
       console.log(err)
       setErrorMessage('При авторизации произошла ошибка')
+    })
+    .finally(() => {
+      setIsLoading(false);
     })
   };
 
@@ -60,15 +67,10 @@ function App() {
       })
   };
 
-  const handleLogout = () => {
-    localStorage.clear()
-    setCurrentUser({})
-    setLoggedIn(false)
-    navigate('/')
-  };
 
   const handleUpdateUser = (name, email) => {
     const jwt = localStorage.getItem('jwt');
+    setIsLoading(true);
     setLoggedIn(true);
     mainApi.updateUserInfo(name, email, jwt)
       .then((data) => {
@@ -83,16 +85,84 @@ function App() {
           setErrorMessage('При обновлении профиля произошла ошибка.');
         }
       })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  };
+
+  const handleSaveMovie = (movie) => {
+    const jwt = localStorage.getItem('jwt');
+    const handledMovie = savedMovies.find(item => {
+      return item.movieId === movie.id
+    });
+    const isLiked = Boolean(handledMovie);
+    const id = handledMovie ? handledMovie._id : null;
+    if (isLiked) {
+      mainApi.deleteMovie(id, jwt)
+        .then((card) => {
+          const updatedSavedMovies = savedMovies.filter(item => card._id !== item._id);
+          localStorage.setItem('savedMovies', updatedSavedMovies);
+          setSavedMovies(updatedSavedMovies);
+        })
+        .catch(err => {
+          console.log(err)
+        })
+        .finally(() => {
+          tokenCheck()
+          setIsLoading(false);
+        });
+    } else {
+      mainApi.saveMovie(movie, jwt)
+        .then((newSavedMovie) => {
+          setSavedMovies((prev) => [...prev, newSavedMovie]);
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    }
+  }
+
+  const handleDeleteMovie = (movie) => {
+    setIsLoading(true);
+    const jwt = localStorage.getItem('jwt');
+    mainApi.deleteMovie(movie._id, jwt)
+      .then((card) => {
+        const updatedSavedMovies = savedMovies.filter(item => card._id !== item._id);
+        localStorage.setItem('savedMovies', updatedSavedMovies);
+        setSavedMovies(prev => updatedSavedMovies);
+      })
+      .catch(error => {
+        console.log(error)
+      })
+      .finally(() => {
+        tokenCheck()
+        setIsLoading(false);
+      });
+  };
+
+  const handleLogout = () => {
+    localStorage.clear()
+    setCurrentUser({})
+    setSavedMovies([])
+    setLoggedIn(false)
+    navigate('/')
   };
 
   const tokenCheck = () => {
     const jwt = localStorage.getItem('jwt');
     const path = useLocation.path;
     mainApi.getContent(jwt)
-      .then((data) => {
+      .then((user) => {
         setLoggedIn(true)
-        setCurrentUser(data)
+        setCurrentUser(user)
         navigate(path)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+      mainApi.getSavedMovies(jwt)
+      .then((movies) => {
+        setSavedMovies(movies)
       })
       .catch((err) => {
         console.log(err)
@@ -110,6 +180,11 @@ function App() {
             <ProtectedRoute loggedIn={loggedIn}>
               <Movies 
                 loggedIn={loggedIn}
+                onLoading={setIsLoading}
+                isLoading={isLoading}
+                onSave={handleSaveMovie}
+                onDelete={handleDeleteMovie}
+                savedMovies={savedMovies}
               />
             </ProtectedRoute>
           } />
@@ -117,6 +192,9 @@ function App() {
             <ProtectedRoute loggedIn={loggedIn}>
               <SavedMovies 
                 loggedIn={loggedIn}
+                isLoading={isLoading}
+                savedMovies={savedMovies}
+                onDelete={handleDeleteMovie}
               />
             </ProtectedRoute>
           } />

@@ -1,40 +1,107 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
+import { useLocation } from "react-router-dom";
 import Header from "../Header/Header";
 import SearchForm from "../Movies/SearchForm/SearchForm";
 import Footer from "../Footer/Footer";
 import MoviesCardList from "../Movies/MoviesCardList/MoviesCardList";
-import testImage1 from "../../images/test_image_for_card/image1.svg"
-import testImage2 from "../../images/test_image_for_card/image2.svg"
-import testImage3 from "../../images/test_image_for_card/image3.svg"
-const savedMovies = [
-  {
-    id: '1',
-    name: '33 слова о дизайне',
-    image: testImage1,
-    duration: '1ч 17м',
-    saved: true
-  },
-  {
-    id: '2',
-    name: 'Киноальманах «100 лет дизайна»',
-    image: testImage2,
-    duration: '1ч 17м',
-    saved: true
-  },
-  {
-    id: '3',
-    name: 'В погоне за Бенкси',
-    image: testImage3,
-    duration: '1ч 17м',
-    saved: true
-  },
-];
-function SavedMovies({ loggedIn }) {
+import Preloader from "../Preloader/Preloader";
+
+const SavedMovies = ({ loggedIn, savedMovies, isLoading, onDelete }) => {
+  const [shortMovies, setShortMovies] = useState(false);
+  const [showedMovies, setShowedMovies] = useState(savedMovies);
+  const [filteredMovies, setFilteredMovies] = useState(showedMovies);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [messageSavedMoviesPage, setMessageSavedMoviesPage] = useState('')
+  const location = useLocation();
+
+  function filterShortMovies(movies) {
+    return movies.filter(movie => movie.duration < 40);
+  }
+  
+  function filterMovies(movies, userQuery, shortMoviesCheckbox) {
+    const moviesByUserQuery = movies.filter((movie) => {
+      const movieRu = String(movie.nameRU).toLowerCase().trim();
+      const movieEn = String(movie.nameEN).toLowerCase().trim();
+      const userMovie = userQuery.toLowerCase().trim();
+      return movieRu.indexOf(userMovie) !== -1 || movieEn.indexOf(userMovie) !== -1;
+    });
+  
+    if (shortMoviesCheckbox) {
+      return filterShortMovies(moviesByUserQuery);
+    } else {
+      return moviesByUserQuery;
+    }
+  }
+  
+  const handleSearch = (inputValue) => {
+    if (inputValue.trim().length === 0) {
+      console.log('Нужно ввести ключевое слово')
+      return;
+    }
+
+    const moviesList = filterMovies(savedMovies, inputValue, shortMovies);
+    setSearchQuery(inputValue);
+    if (moviesList.length === 0) {
+      setMessageSavedMoviesPage('Ничего не найдено.')
+      console.log('Ничего не найдено.')
+    } else {
+      setMessageSavedMoviesPage('')
+      setFilteredMovies(moviesList);
+      setShowedMovies(moviesList);
+    }
+  }
+
+  const handleShortFilms = () => {
+    if (!shortMovies) {
+      setShortMovies(true);
+      localStorage.setItem('shortSavedMovies', true);
+      setShowedMovies(filterShortMovies(filteredMovies));
+      filterShortMovies(filteredMovies).length === 0 ? setMessageSavedMoviesPage('Ничего не найдено.') : setMessageSavedMoviesPage('');
+    } else {
+      setShortMovies(false);
+      localStorage.setItem('shortSavedMovies', false);
+      filteredMovies.length === 0 ? setMessageSavedMoviesPage('Ничего не найдено.') : setMessageSavedMoviesPage('');
+      setShowedMovies(filteredMovies);
+    }
+  }
+
+  useEffect(() => {
+    if (localStorage.getItem('shortSavedMovies') === 'true') {
+      setShortMovies(true);
+      setShowedMovies(filterShortMovies(savedMovies));
+    } else {
+      setShortMovies(false);
+      const moviesList = filterMovies(savedMovies, searchQuery, shortMovies);
+      setShowedMovies(moviesList);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [savedMovies, location, shortMovies]);
+
+  useEffect(() => {
+    setFilteredMovies(savedMovies);
+    savedMovies.length !== 0 ? setMessageSavedMoviesPage('') : setMessageSavedMoviesPage('Ничего не найдено.');
+  }, [savedMovies]);
+
   return(
     <div className="page">
       <Header loggedIn={loggedIn}/>
-      <SearchForm />
-      <MoviesCardList isSavedMoviesPage={true} movies={savedMovies}/>
+      <SearchForm           
+        handleSearch={handleSearch}
+        onFilter={handleShortFilms}
+        shortMovies={shortMovies}
+      />
+      {isLoading && (
+          <Preloader />
+        )}
+        {!isLoading && (
+          <MoviesCardList
+            isSavedMoviesPage={true}
+            movies={showedMovies}
+            savedMovies={savedMovies}
+            onDelete={onDelete}
+            messageSavedMoviesPage={messageSavedMoviesPage}
+          />
+        )}
       <Footer />
     </div>
   );

@@ -26,6 +26,9 @@
   color: #FFF;
   cursor: pointer;
 }
+.movies-list__text {
+  color: #FFF;
+}
 .movies-list__button:hover{
   opacity: 0.8;
 }

@@ -16,10 +16,12 @@ const Profile = ({ handleLogout, loggedIn, handleUpdateUser }) => {
   useEffect(() => {
     if (nameError || emailError) {
       setFormValid(false)
+    } else if(name === currentUser.name && email === currentUser.email){
+      setFormValid(false) 
     } else {
       setFormValid(true) 
     }
-  }, [ nameError, emailError ]);
+  }, [nameError, emailError, name, email, currentUser.name, currentUser.email]);
 
   const nameHandler = (e) => {
     const validName = /^[a-zA-Zа-яА-Я- ]+$/.test(e.target.value);
@@ -31,9 +33,11 @@ const Profile = ({ handleLogout, loggedIn, handleUpdateUser }) => {
       }
     } else if(!validName) {
       setNameError('Поле может содержать только латиницу, кириллицу, пробел или дефис.')
-    } else {
+    }  else {
       setNameError('')
     }
+    console.log(e.target.value )
+    console.log()
   }
 
   const emailHandler = (e) => {

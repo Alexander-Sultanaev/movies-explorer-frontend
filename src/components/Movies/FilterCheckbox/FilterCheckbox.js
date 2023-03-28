@@ -1,33 +1,18 @@
-import * as React from 'react';
-import  { useState  } from "react"
-import './FilterCheckbox.css'
+import './FilterCheckbox.css';
 
-const FilterCheckbox = () => {
-  const [isChecked, setIsChecked] = useState(false);
-  const [filterIsActive, setFilterIsActive] = useState(false);
-  const checkHandler = () => {
-    setIsChecked(!isChecked)
-    console.log("Проверка чекбокса")
-  }
-  const handleToggle = () => {
-    setFilterIsActive(!filterIsActive);
-  };
+const FilterCheckbox = ({ onFilter, isMovieFilter }) => {
   return (
-    <section className='filter-checkbox'>
-      <div 
-      onClick={handleToggle}
-      className={`filter-checkbox__input-style ${filterIsActive ? "filter-checkbox__input-style-switch-on" : ""}`}>
-        <input 
-          className='filter-checkbox__input'
-          type="checkbox"
-          id="checkbox"
-          checked={isChecked}
-          onChange={checkHandler}
-          required
-        />
-      </div>
-      <label className='filter-checkbox__label'>Короткометражки</label>
+    <section className='filter'>
+      <input
+        type='checkbox'
+        id='checkbox'
+        className='filter__checkbox'
+        onChange={onFilter}
+        checked={isMovieFilter}
+      />
+      <label htmlFor='checkbox' className='filter__label'>Короткометражки</label>
     </section>
   )
-}
+};
+
 export default FilterCheckbox;

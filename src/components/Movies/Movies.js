@@ -1,115 +1,145 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import Header from "../Header/Header.js";
 import SearchForm from "./SearchForm/SearchForm.js";
 import MoviesCardList from "./MoviesCardList/MoviesCardList.js";
 import Footer from "../Footer/Footer.js";
-import testImage1 from "../../images/test_image_for_card/image1.svg"
-import testImage2 from "../../images/test_image_for_card/image2.svg"
-import testImage3 from "../../images/test_image_for_card/image3.svg"
-import testImage4 from "../../images/test_image_for_card/image4.svg"
-import testImage5 from "../../images/test_image_for_card/image5.svg"
-import testImage6 from "../../images/test_image_for_card/image6.svg"
-import testImage7 from "../../images/test_image_for_card/image7.svg"
-import testImage8 from "../../images/test_image_for_card/image8.svg"
-import testImage9 from "../../images/test_image_for_card/image9.svg"
-import testImage10 from "../../images/test_image_for_card/image10.svg"
-import testImage11 from "../../images/test_image_for_card/image11.svg"
-import testImage12 from "../../images/test_image_for_card/image12.svg"
-const movies = [
-  {
-    id: '1',
-    name: '33 слова о дизайне',
-    image: testImage1,
-    duration: '1ч 17м',
-    saved: false
-  },
-  {
-    id: '2',
-    name: 'Киноальманах «100 лет дизайна»',
-    image: testImage2,
-    duration: '1ч 17м',
-    saved: true
-  },
-  {
-    id: '3',
-    name: 'В погоне за Бенкси',
-    image: testImage3,
-    duration: '1ч 17м',
-    saved: false
-  },
-  {
-    id: '4',
-    name: '33 слова о дизайне',
-    image: testImage4,
-    duration: '1ч 17м',
-    saved: false
-  },
-  {
-    id: '5',
-    name: 'Киноальманах «100 лет дизайна»',
-    image: testImage5,
-    duration: '1ч 17м',
-    saved: false
-  },
-  {
-    id: '6',
-    name: "Книготорговцы",
-    image: testImage6,
-    duration: '1ч 17м',
-    saved: false
-  },
-  {
-    id: '7',
-    name: "Когда я думаю о Германии ночью",
-    image: testImage7,
-    duration: '1ч 17м',
-    saved: true
-  },
-  {
-    id: '8',
-    name: "Gimme Danger: История Игги и The Stooges",
-    image: testImage8,
-    duration: '1ч 17м',
-    saved: false
-  },
-  {
-    id: '9',
-    name: "Дженис: Маленькая девочка грустит",
-    image: testImage9,
-    duration: '1ч 17м',
-    saved: false
-  },
-  {
-    id: '10',
-    name: "Соберись перед прыжком",
-    image: testImage10,
-    duration: '1ч 17м',
-    saved: false
-  },
-  {
-    id: '11',
-    name: "Пи Джей Харви: A dog called money",
-    image: testImage11,
-    duration: '1ч 17м',
-    saved: false
-  },
-  {
-    id: '12',
-    name: "По волнам: Искусство звука в кино",
-    image: testImage12,
-    duration: '1ч 17м',
-    saved: false
-  },
-];
-function Movies({ loggedIn }) {
-  return(
-    <div className="movies">
-      <Header loggedIn={loggedIn}/>
-        <SearchForm />
-        <MoviesCardList isSavedMoviesPage={false} movies={movies} />
+import moviesApi from "../../utils/MoviesApi.js";
+import Preloader from "../Preloader/Preloader.js";
+function Movies({ loggedIn, isLoading, onLoading, savedMovies, onSave}) {
+  const [shortMovies, setShortMovies, ] = useState(false);
+  const [initialMovies, setInitialMovies] = useState([]);
+  const [filteredMovies, setFilteredMovies] = useState([]);
+  const [isAllMovies, setIsAllMovies] = useState([]);
+  const [messageMoviesPage, setMessageMoviesPage] = useState('')
+  const location = useLocation();
+
+  function filterShortMovies(movies) {
+    return movies.filter(movie => movie.duration < 40);
+  }
+  
+  function filterMovies(movies, userQuery, shortMoviesCheckbox) {
+    const moviesByUserQuery = movies.filter((movie) => {
+      const movieRu = String(movie.nameRU).toLowerCase().trim();
+      const movieEn = String(movie.nameEN).toLowerCase().trim();
+      const userMovie = userQuery.toLowerCase().trim();
+      return movieRu.indexOf(userMovie) !== -1 || movieEn.indexOf(userMovie) !== -1;
+    });
+  
+    if (shortMoviesCheckbox) {
+      return filterShortMovies(moviesByUserQuery);
+    } else {
+      return moviesByUserQuery;
+    }
+  }
+
+  const handleSetFilteredMovies = (movies, userQuery, shortMoviesCheckbox) => {
+    const moviesList = filterMovies(movies, userQuery, false);
+    if (moviesList.length === 0) {
+      setMessageMoviesPage('По данному запросу ничего не найдено')
+      console.log('По данному запросу ничего не найдено')
+    } else {
+      setMessageMoviesPage('')
+      console.log('OK')
+    }
+    setInitialMovies(moviesList);
+    setFilteredMovies(
+      shortMoviesCheckbox ? filterShortMovies(moviesList) : moviesList
+    );
+    localStorage.setItem('movies', JSON.stringify(moviesList));
+  }
+
+  const handleSearch = (inputValue) => {
+    if (inputValue.trim().length === 0) {
+      console.log('Нужно ввести ключевое слово')
+      return;
+    }
+
+    localStorage.setItem('movieSearch', inputValue);
+    localStorage.setItem('shortMovies', shortMovies);
+
+    if (isAllMovies.length === 0) {
+      onLoading(true);
+      moviesApi
+        .getMovies()
+        .then(movies => {
+          localStorage.setItem('allMovies', JSON.stringify(movies));
+          setIsAllMovies(movies);
+          handleSetFilteredMovies(
+            movies,
+            inputValue,
+            shortMovies
+          );
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+        .finally(() => onLoading(false));
+    } else {
+      handleSetFilteredMovies(isAllMovies, inputValue, shortMovies);
+    }
+  }
+
+  const handleShortFilms = () => {
+    setShortMovies(!shortMovies);
+    if (!shortMovies) {
+      setFilteredMovies(filterShortMovies(initialMovies));
+      if (filterMovies.length === 0) {
+        setMessageMoviesPage('По данному запросу ничего не найдено')
+      }
+    } else {
+      setFilteredMovies(initialMovies);
+    }
+    localStorage.setItem('shortMovies', !shortMovies);
+  }
+
+  useEffect(() => {
+    if (localStorage.getItem('shortMovies') === 'true') {
+      setShortMovies(true);
+    } else {
+      setShortMovies(false);
+    }
+  }, [location]);
+
+  useEffect(() => {
+    if (localStorage.getItem('movies')) {
+      const movies = JSON.parse(
+        localStorage.getItem('movies')
+      );
+      setInitialMovies(movies);
+      if (
+        localStorage.getItem('shortMovies') === 'true'
+      ) {
+        setFilteredMovies(filterShortMovies(movies));
+      } else {
+        setFilteredMovies(movies);
+      }
+    }
+  }, [location]);
+
+  return (
+    <section className='movies__page'>
+      <Header loggedIn={loggedIn} />
+      <div className='movies__content'>
+        <SearchForm
+          handleSearch={handleSearch}
+          onFilter={handleShortFilms}
+          shortMovies={shortMovies}
+        />
+        {isLoading && (
+          <Preloader />
+        )}
+        {!isLoading && <MoviesCardList
+          isSavedMoviesPage={false}
+          movies={filteredMovies}
+          savedMovies={savedMovies}
+          onSave={onSave}
+          messageMoviesPage={messageMoviesPage}
+        />}
+      </div>
       <Footer />
-    </div>
-  );
+    </section>
+  )
 };
 
 export default Movies;
