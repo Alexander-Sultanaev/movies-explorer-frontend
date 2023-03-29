@@ -6,7 +6,7 @@ import Footer from "../Footer/Footer";
 import MoviesCardList from "../Movies/MoviesCardList/MoviesCardList";
 import Preloader from "../Preloader/Preloader";
 
-const SavedMovies = ({ loggedIn, savedMovies, isLoading, onDelete }) => {
+const SavedMovies = ({ loggedIn, savedMovies, isLoading, onDelete, errorMessage }) => {
   const [shortMovies, setShortMovies] = useState(false);
   const [showedMovies, setShowedMovies] = useState(savedMovies);
   const [filteredMovies, setFilteredMovies] = useState(showedMovies);
@@ -102,6 +102,7 @@ const SavedMovies = ({ loggedIn, savedMovies, isLoading, onDelete }) => {
             messageSavedMoviesPage={messageSavedMoviesPage}
           />
         )}
+        <p>{errorMessage}</p>
       <Footer />
     </div>
   );

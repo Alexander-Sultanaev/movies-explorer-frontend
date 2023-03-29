@@ -145,6 +145,7 @@ function App() {
     setCurrentUser({})
     setSavedMovies([])
     setLoggedIn(false)
+    setErrorMessage('')
     navigate('/')
   };
 
@@ -185,6 +186,7 @@ function App() {
                 onSave={handleSaveMovie}
                 onDelete={handleDeleteMovie}
                 savedMovies={savedMovies}
+                errorMessage={errorMessage}
               />
             </ProtectedRoute>
           } />
@@ -195,6 +197,7 @@ function App() {
                 isLoading={isLoading}
                 savedMovies={savedMovies}
                 onDelete={handleDeleteMovie}
+                errorMessage={errorMessage}
               />
             </ProtectedRoute>
           } />
