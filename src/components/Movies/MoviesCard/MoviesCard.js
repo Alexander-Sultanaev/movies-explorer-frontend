@@ -27,6 +27,15 @@ function MoviesCard({ movie, onSave, onDelete, savedMovies }) {
   function deleteCard() {
     onDelete(movie)
   }
+  function movieDuration(n) {
+    let m = n % 60
+    let h = (n -m) / 60
+    if (h === 0){
+      return `${m}м`
+    } else {
+      return `${h}ч ${m}м`
+    }
+  }
   return(
     <div className="movies-card">
       <div className="movies-card__container">
@@ -47,7 +56,7 @@ function MoviesCard({ movie, onSave, onDelete, savedMovies }) {
       </div>
       <div className="movies-card__wrapper">
         <p className="movies-card__title">{movie.nameRU}</p>
-        <p className="movies-card__time">{`${movie.duration}м`}</p>
+        <p className="movies-card__time">{movieDuration(movie.duration)}</p>
       </div>
     </div>
   );

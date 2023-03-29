@@ -5,6 +5,7 @@
   text-align: center;
 }
 .movies-list__grid {
+  padding: 0;
   margin: 0 auto;
   max-width: 1140px;
   display: grid;
