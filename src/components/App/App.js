@@ -27,6 +27,23 @@ function App() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loggedIn]);
 
+  const handleRegister = (email, password, name) => {
+    mainApi.register(email, password, name)
+      .then(() => {
+        handleLogin(email, password)
+        setErrorMessage('')
+      })
+      .catch((err) => {
+        if (err.includes(409)) {
+          setErrorMessage('Данный Email уже используется!')
+        }
+        else {
+          setErrorMessage('При регистрации произошла ошибка')
+        }
+        console.log(err)
+      })
+  };
+
   const handleLogin = (email, password) => {
     mainApi.login(email, password)
       .then((jwt) => {
@@ -45,25 +62,12 @@ function App() {
       setErrorMessage('При авторизации произошла ошибка')
     })
     .finally(() => {
+      setErrorMessage('')
       setIsLoading(false);
     })
   };
 
-  const handleRegister = (email, password, name) => {
-    mainApi.register(email, password, name)
-      .then(() => {
-        handleLogin({ email, password })
-      })
-      .catch((err) => {
-        if (err.includes(409)) {
-          setErrorMessage('Данный Email уже используется!')
-        }
-        else {
-          setErrorMessage('При регистрации произошла ошибка')
-        }
-        console.log(err)
-      })
-  };
+
 
 
   const handleUpdateUser = (name, email) => {
