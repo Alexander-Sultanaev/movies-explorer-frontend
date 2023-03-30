@@ -22,7 +22,7 @@ const Profile = ({ handleLogout, loggedIn, handleUpdateUser }) => {
       setFormValid(true) 
     }
   }, [nameError, emailError, name, email, currentUser.name, currentUser.email]);
-
+  
   const nameHandler = (e) => {
     const validName = /^[a-zA-Zа-яА-Я- ]+$/.test(e.target.value);
     setName(e.target.value)
@@ -36,8 +36,6 @@ const Profile = ({ handleLogout, loggedIn, handleUpdateUser }) => {
     }  else {
       setNameError('')
     }
-    console.log(e.target.value )
-    console.log()
   }
 
   const emailHandler = (e) => {

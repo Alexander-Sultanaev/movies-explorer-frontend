@@ -51,10 +51,8 @@ function App() {
 
   const handleRegister = (email, password, name) => {
     mainApi.register(email, password, name)
-      .then((user) => {
-        setLoggedIn(true)
-        setCurrentUser(user)
-        navigate('/movies')
+      .then(() => {
+        handleLogin({ email, password })
       })
       .catch((err) => {
         if (err.includes(409)) {
