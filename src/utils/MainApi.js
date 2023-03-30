@@ -1,4 +1,4 @@
-const BASE_URL = 'https://api.sultanaev.diplom.nomoredomains.rocks' && 'http://localhost:3000';
+const BASE_URL = 'https://api.sultanaev.diplom.nomoredomains.rocks';
 
 class MainApi {
   constructor(options) {
