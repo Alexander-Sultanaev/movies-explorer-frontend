@@ -80,6 +80,7 @@
   line-height: 16px;
   color: #FFF;
   margin: 14px;
+  max-width: 250px;
 }
 .movies-card__time {
   display: block;
@@ -119,6 +120,7 @@
   .movies-card__title {
     font-size: 12px;
     line-height: 15px;
+    max-width: 200px;
   }
   .movies-card__image {
     width: 290px;
