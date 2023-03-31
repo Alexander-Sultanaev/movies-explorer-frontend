@@ -6,7 +6,6 @@ function MoviesCard({ movie, onSave, onDelete, savedMovies }) {
   const location = useLocation();
   const [ isSaved, setIsSaved ] = useState(false);
 
-
   useEffect(() => {
     if (location.pathname !== "/saved-movies") {
       const savedMovie = savedMovies.filter((obj) => {
@@ -36,16 +35,17 @@ function MoviesCard({ movie, onSave, onDelete, savedMovies }) {
       return `${h}ч ${m}м`
     }
   }
+
   return(
     <div className="movies-card">
       <div className="movies-card__container">
         <a href={movie.trailerLink} rel="noreferrer" target="_blank">
-        <img 
-          src={location.pathname === '/movies' ? `https://api.nomoreparties.co/${movie.image.url}` :
-          movie.image}
-          alt={`Фрагмент фильма: ${movie.nameRU}`}
-          className="movies-card__image"
-        />
+          <img 
+            src={location.pathname === '/movies' ? `https://api.nomoreparties.co/${movie.image.url}` :
+            movie.image}
+            alt={`Фрагмент фильма: ${movie.nameRU}`}
+            className="movies-card__image"
+          />
         </a>
         {location.pathname === '/movies' ? 
         <button className={`movies-card__button ${isSaved ? 'movies-card__button-saved' : ''}`}

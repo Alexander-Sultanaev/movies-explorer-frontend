@@ -19,6 +19,7 @@ function SearchForm( { handleSearch, onFilter, shortMovies }) {
     e.preventDefault()
     handleSearch(inputValue, shortMovies)
   }
+  
   return(
     <section className="search-form">
       <div className="search-form__container">

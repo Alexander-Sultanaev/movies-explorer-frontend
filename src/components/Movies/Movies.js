@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import Header from "../Header/Header.js";
 import SearchForm from "./SearchForm/SearchForm.js";
@@ -7,25 +7,24 @@ import Footer from "../Footer/Footer.js";
 import moviesApi from "../../utils/MoviesApi.js";
 import Preloader from "../Preloader/Preloader.js";
 function Movies({ loggedIn, isLoading, onLoading, savedMovies, onSave}) {
-  const [shortMovies, setShortMovies, ] = useState(false);
-  const [initialMovies, setInitialMovies] = useState([]);
-  const [filteredMovies, setFilteredMovies] = useState([]);
-  const [isAllMovies, setIsAllMovies] = useState([]);
-  const [messageMoviesPage, setMessageMoviesPage] = useState('')
+  const [ shortMovies, setShortMovies, ] = useState(false);
+  const [ initialMovies, setInitialMovies ] = useState([]);
+  const [ filteredMovies, setFilteredMovies ] = useState([]);
+  const [ isAllMovies, setIsAllMovies ] = useState([]);
+  const [ messageMoviesPage, setMessageMoviesPage ] = useState('')
   const location = useLocation();
 
-  function filterShortMovies(movies) {
+  const filterShortMovies = (movies) => {
     return movies.filter(movie => movie.duration < 40);
   }
   
-  function filterMovies(movies, userQuery, shortMoviesCheckbox) {
+  const filterMovies = (movies, userQuery, shortMoviesCheckbox) => {
     const moviesByUserQuery = movies.filter((movie) => {
       const movieRu = String(movie.nameRU).toLowerCase().trim();
       const movieEn = String(movie.nameEN).toLowerCase().trim();
       const userMovie = userQuery.toLowerCase().trim();
       return movieRu.indexOf(userMovie) !== -1 || movieEn.indexOf(userMovie) !== -1;
-    });
-  
+    })
     if (shortMoviesCheckbox) {
       return filterShortMovies(moviesByUserQuery);
     } else {
@@ -40,7 +39,6 @@ function Movies({ loggedIn, isLoading, onLoading, savedMovies, onSave}) {
       console.log('По данному запросу ничего не найдено')
     } else {
       setMessageMoviesPage('')
-      console.log('OK')
     }
     setInitialMovies(moviesList);
     setFilteredMovies(

@@ -1,18 +1,18 @@
-import React from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useLocation } from "react-router-dom";
 import MoviesCard from "../MoviesCard/MoviesCard";
 import './MoviesCardList.css';
 
 function MoviesCardList({ isSavedMoviesPage, movies, savedMovies, onSave, onDelete, messageSavedMoviesPage, messageMoviesPage }) {
-  const [showMovieList, setShowMovieList] = React.useState(movies);
+  const [showMovieList, setShowMovieList] = useState(movies);
   const location = useLocation();
   const screenWidth = useScreenWidth();
   const searchedMoviesCount = movies ? movies.length : 0;
 
   function useScreenWidth() {
-    const getScreenWidth = React.useCallback(() => window.innerWidth, []);
-    const [screenWidth, setScreenWidth] = React.useState(getScreenWidth());
-    React.useEffect(() => {
+    const getScreenWidth = useCallback(() => window.innerWidth, []);
+    const [screenWidth, setScreenWidth] = useState(getScreenWidth());
+    useEffect(() => {
       function handleScreenResize() {
         setScreenWidth(getScreenWidth());
       };
@@ -31,7 +31,7 @@ function MoviesCardList({ isSavedMoviesPage, movies, savedMovies, onSave, onDele
     return screenWidth;
   }
 
-  const handleMoreClick = () => {
+  function handleMoreClick() {
     if (screenWidth > 1217) {
       setShowMovieList(movies.slice(0, showMovieList.length + 3))
     } else {
@@ -39,7 +39,7 @@ function MoviesCardList({ isSavedMoviesPage, movies, savedMovies, onSave, onDele
     }
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (screenWidth > 917) {
       setShowMovieList(movies.slice(0, 12))
     } else if (screenWidth > 480 && screenWidth <= 1217) {

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import {useState, useEffect} from "react";
 import { useLocation } from "react-router-dom";
 import Header from "../Header/Header";
 import SearchForm from "../Movies/SearchForm/SearchForm";
@@ -7,18 +7,18 @@ import MoviesCardList from "../Movies/MoviesCardList/MoviesCardList";
 import Preloader from "../Preloader/Preloader";
 
 const SavedMovies = ({ loggedIn, savedMovies, isLoading, onDelete, errorMessage }) => {
-  const [shortMovies, setShortMovies] = useState(false);
-  const [showedMovies, setShowedMovies] = useState(savedMovies);
-  const [filteredMovies, setFilteredMovies] = useState(showedMovies);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [messageSavedMoviesPage, setMessageSavedMoviesPage] = useState('')
+  const [ shortMovies, setShortMovies ] = useState(false);
+  const [ showedMovies, setShowedMovies ] = useState(savedMovies);
+  const [ filteredMovies, setFilteredMovies ] = useState(showedMovies);
+  const [ searchQuery, setSearchQuery ] = useState('');
+  const [ messageSavedMoviesPage, setMessageSavedMoviesPage ] = useState('')
   const location = useLocation();
 
-  function filterShortMovies(movies) {
+  const filterShortMovies = (movies) => {
     return movies.filter(movie => movie.duration < 40);
   }
   
-  function filterMovies(movies, userQuery, shortMoviesCheckbox) {
+  const filterMovies = (movies, userQuery, shortMoviesCheckbox) => {
     const moviesByUserQuery = movies.filter((movie) => {
       const movieRu = String(movie.nameRU).toLowerCase().trim();
       const movieEn = String(movie.nameEN).toLowerCase().trim();
@@ -92,16 +92,16 @@ const SavedMovies = ({ loggedIn, savedMovies, isLoading, onDelete, errorMessage 
       />
       {isLoading && (
           <Preloader />
-        )}
-        {!isLoading && (
-          <MoviesCardList
-            isSavedMoviesPage={true}
-            movies={showedMovies}
-            savedMovies={savedMovies}
-            onDelete={onDelete}
-            messageSavedMoviesPage={messageSavedMoviesPage}
-          />
-        )}
+      )}
+      {!isLoading && (
+        <MoviesCardList
+          isSavedMoviesPage={true}
+          movies={showedMovies}
+          savedMovies={savedMovies}
+          onDelete={onDelete}
+          messageSavedMoviesPage={messageSavedMoviesPage}
+        />
+      )}
         <p>{errorMessage}</p>
       <Footer />
     </div>

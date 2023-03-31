@@ -62,6 +62,7 @@ function Login( { handleLogin, loggedIn, errorMessage }) {
       )
     }
   }
+  
   return(
     <div className="login">
       <Link className="login__icon" to='/'></Link>

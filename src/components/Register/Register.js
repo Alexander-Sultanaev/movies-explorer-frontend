@@ -13,6 +13,7 @@ function Register({ errorMessage, loggedIn, handleRegister }) {
   const [ emailError, setEmailError ] = useState('Поле не может быть пустым');
   const [ passwordError, setPasswordError ] = useState('Поле не может быть пустым');
   const [ formValid, setFormValid ] = useState(false);
+  
   useEffect( () => {
     if (nameError || emailError || passwordError) {
       setFormValid(false)

@@ -1,6 +1,6 @@
-import React from "react";
-import './NavTab.css';
 import { Link } from 'react-scroll';
+import './NavTab.css';
+
 const NavTab = () => {
   return (
       <section className="nav-tab">
@@ -15,9 +15,6 @@ const NavTab = () => {
             <Link className="nav-tab__link" to="about" smooth={true} duration={1000}>Студент</Link>
           </li>
         </ul>
-
-        
-        
       </section>
   );
 };

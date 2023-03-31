@@ -7,6 +7,7 @@ function MenuBurger ({ isOpen, closeMenu }) {
   function handleClick() {
     closeMenu()
   }
+  
   return (
     <div className={`menu ${isOpen ? '' : 'menu_hidden'}`}>
       <div className='menu__container'>
