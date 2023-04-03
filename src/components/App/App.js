@@ -11,6 +11,7 @@ import SavedMovies from "../SavedMovies/SavedMovies";
 import Profile from "../Profile/Profile";
 import PageNotFound from "../PageNotFound/PageNotFound";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
+import ProtectionAuthorization from "../ProtectionAuthorization/ProtectionAuthorization";
 import mainApi from "../../utils/MainApi";
 
 function App() {
@@ -215,10 +216,14 @@ function App() {
             </ProtectedRoute>
           } />
           <Route path="/signin" element={
-            <Login handleLogin={handleLogin} errorMessage={errorMessage} loggedIn={loggedIn} />
+            <ProtectionAuthorization loggedIn={loggedIn}>
+              <Login handleLogin={handleLogin} errorMessage={errorMessage} loggedIn={loggedIn} />
+            </ProtectionAuthorization>
           } />
           <Route path="/signup" element={
-            <Register handleRegister={handleRegister} errorMessage={errorMessage} loggedIn={loggedIn} />
+            <ProtectionAuthorization loggedIn={loggedIn}>
+              <Register handleRegister={handleRegister} errorMessage={errorMessage} loggedIn={loggedIn} />
+            </ProtectionAuthorization>
           } />
         <Route exact path='*' element={<PageNotFound/>}/>
       </Routes>

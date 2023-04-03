@@ -6,7 +6,6 @@ function ProtectedRoute({children, loggedIn}) {
           children
       )
   }
-
   return (
     <Navigate to="/" />
   )
