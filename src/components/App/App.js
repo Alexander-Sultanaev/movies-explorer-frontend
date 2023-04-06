@@ -68,9 +68,6 @@ function App() {
     })
   };
 
-
-
-
   const handleUpdateUser = (name, email) => {
     const jwt = localStorage.getItem('jwt');
     setIsLoading(true);
@@ -212,17 +209,26 @@ function App() {
                 loggedIn={loggedIn}
                 handleUpdateUser={handleUpdateUser}
                 confirmMessage={confirmMessage}
+                setConfirmMessage ={setConfirmMessage}
               />
             </ProtectedRoute>
           } />
           <Route path="/signin" element={
             <ProtectionAuthorization loggedIn={loggedIn}>
-              <Login handleLogin={handleLogin} errorMessage={errorMessage} loggedIn={loggedIn} />
+              <Login 
+                handleLogin={handleLogin} 
+                errorMessage={errorMessage} 
+                loggedIn={loggedIn} 
+              />
             </ProtectionAuthorization>
           } />
           <Route path="/signup" element={
             <ProtectionAuthorization loggedIn={loggedIn}>
-              <Register handleRegister={handleRegister} errorMessage={errorMessage} loggedIn={loggedIn} />
+              <Register 
+                handleRegister={handleRegister} 
+                errorMessage={errorMessage} 
+                loggedIn={loggedIn} 
+              />
             </ProtectionAuthorization>
           } />
         <Route exact path='*' element={<PageNotFound/>}/>

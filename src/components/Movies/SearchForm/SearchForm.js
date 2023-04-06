@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import './SearchForm.css';
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
-function SearchForm( { handleSearch, onFilter, shortMovies }) {
+function SearchForm({ handleSearch, onFilter, shortMovies }) {
   const[ inputValue, setInputValue ] = useState('')
   const location = useLocation()
   

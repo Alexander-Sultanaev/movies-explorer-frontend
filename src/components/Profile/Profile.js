@@ -3,7 +3,7 @@ import { CurrentUserContext } from "../../context/CurrentUserContext";
 import Header from "../Header/Header";
 import './Profile.css';
 
-const Profile = ({ handleLogout, loggedIn, handleUpdateUser }) => {
+const Profile = ({ handleLogout, loggedIn, handleUpdateUser, confirmMessage, setConfirmMessage }) => {
   const currentUser = useContext(CurrentUserContext);
   const [ name, setName ] = useState(currentUser.name)
   const [ email, setEmail ] = useState(currentUser.email)
@@ -12,6 +12,22 @@ const Profile = ({ handleLogout, loggedIn, handleUpdateUser }) => {
   const [ nameError, setNameError ] = useState('');
   const [ emailError, setEmailError ] = useState('');
   const [ formValid, setFormValid ] = useState(false);
+  const [ confirmMessageCheck, setConfirmMessageCheck ] =useState(false)
+
+//Уведомление пользоватедя об изменении данных
+  useEffect(() => {
+    if (confirmMessage !== ''){
+      setConfirmMessageCheck(true)
+    }
+  }, [confirmMessage])
+
+  useEffect(()=> {
+    if(confirmMessageCheck === true){
+      setTimeout(() => {
+        setConfirmMessage('')
+      }, "10000")
+    }
+  })
 
   useEffect(() => {
     if (nameError || emailError) {
@@ -106,6 +122,7 @@ const Profile = ({ handleLogout, loggedIn, handleUpdateUser }) => {
           </div>
           {(emailDirty && emailError) && <span className="profile__error">{emailError}</span>}
         </form>
+        <p className="profile__confirm">{confirmMessage}</p>
         <button 
           className={`profile__button profile__button-edit ${!formValid ? 'profile__button-disable' : ''}`} 
           onClick={handlerSubmit}

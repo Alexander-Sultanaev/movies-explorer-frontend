@@ -23,6 +23,11 @@
   line-height: 13px;
   width: 100%;
 }
+.profile__confirm {
+  color: #FFF;
+  position: absolute;
+  top: 400px
+}
 .profile__container {
   display: flex;
   flex-direction: row;
