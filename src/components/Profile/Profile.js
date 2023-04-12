@@ -12,28 +12,17 @@ const Profile = ({ handleLogout, loggedIn, handleUpdateUser, confirmMessage, set
   const [ nameError, setNameError ] = useState('');
   const [ emailError, setEmailError ] = useState('');
   const [ formValid, setFormValid ] = useState(false);
-  const [ confirmMessageCheck, setConfirmMessageCheck ] =useState(false)
 
-//Уведомление пользоватедя об изменении данных
-  useEffect(() => {
-    if (confirmMessage !== ''){
-      setConfirmMessageCheck(true)
-    }
-  }, [confirmMessage])
-
-  useEffect(()=> {
-    if(confirmMessageCheck === true){
-      setTimeout(() => {
-        setConfirmMessage('')
-      }, "10000")
-    }
-  })
+//Уведомление пользователя об изменении данных
 
   useEffect(() => {
     if (nameError || emailError) {
       setFormValid(false)
     } else if(name === currentUser.name && email === currentUser.email){
-      setFormValid(false) 
+      setFormValid(false)
+      setTimeout(() => {
+        setConfirmMessage('')
+      }, "8000")
     } else {
       setFormValid(true) 
     }

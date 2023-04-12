@@ -40,7 +40,9 @@ function MoviesCardList({ isSavedMoviesPage, movies, savedMovies, onSave, onDele
   }
 
   useEffect(() => {
-    if (screenWidth > 917) {
+    if (isSavedMoviesPage) {
+      setShowMovieList(movies.slice(0, showMovieList.length));
+    } else if (screenWidth > 917) {
       setShowMovieList(movies.slice(0, 12))
     } else if (screenWidth > 480 && screenWidth <= 1217) {
       setShowMovieList(movies.slice(0, 8));
@@ -49,8 +51,8 @@ function MoviesCardList({ isSavedMoviesPage, movies, savedMovies, onSave, onDele
     } else {
       setShowMovieList(movies);
     }
-  }, [screenWidth, movies])
-  
+  }, [screenWidth, movies, isSavedMoviesPage, showMovieList.length])
+
   return (
     <section className='movies-list'>
       <ul className='movies-list__grid'>
@@ -66,7 +68,7 @@ function MoviesCardList({ isSavedMoviesPage, movies, savedMovies, onSave, onDele
           />
         })}
       </ul>
-      {showMovieList && searchedMoviesCount !== showMovieList.length && (
+      {!isSavedMoviesPage && showMovieList && searchedMoviesCount !== showMovieList.length && (
         <button className="movies-list__button" onClick={handleMoreClick}>Ещё</button>
       )}
       {location.pathname === '/movies' ? 
