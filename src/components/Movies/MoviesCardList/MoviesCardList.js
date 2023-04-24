@@ -8,7 +8,7 @@ function MoviesCardList({ isSavedMoviesPage, movies, savedMovies, onSave, onDele
   const location = useLocation();
   const screenWidth = useScreenWidth();
   const searchedMoviesCount = movies ? movies.length : 0;
-
+  
   function useScreenWidth() {
     const getScreenWidth = useCallback(() => window.innerWidth, []);
     const [screenWidth, setScreenWidth] = useState(getScreenWidth());
@@ -40,9 +40,7 @@ function MoviesCardList({ isSavedMoviesPage, movies, savedMovies, onSave, onDele
   }
 
   useEffect(() => {
-    if (isSavedMoviesPage) {
-      setShowMovieList(movies.slice(0, showMovieList.length));
-    } else if (screenWidth > 917) {
+    if (screenWidth > 1217) {
       setShowMovieList(movies.slice(0, 12))
     } else if (screenWidth > 480 && screenWidth <= 1217) {
       setShowMovieList(movies.slice(0, 8));
@@ -51,7 +49,13 @@ function MoviesCardList({ isSavedMoviesPage, movies, savedMovies, onSave, onDele
     } else {
       setShowMovieList(movies);
     }
-  }, [screenWidth, movies, isSavedMoviesPage, showMovieList.length])
+  }, [screenWidth, movies,])
+
+  useEffect(() => {
+    if (isSavedMoviesPage === true) {
+      setShowMovieList(movies.slice(0, ))
+    }
+  }, [isSavedMoviesPage, movies])
 
   return (
     <section className='movies-list'>
