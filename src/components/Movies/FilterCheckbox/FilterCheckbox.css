@@ -26,7 +26,7 @@
   width: 10px;
   content: '';
   border-radius: 50%;
-  transition: 0.5s ease;
+  transition: 0.2s ease;
   background-color: #FFF;
 }
 
@@ -38,7 +38,7 @@
   width: 10px;
   content: '';
   border-radius: 50%;
-  transition: 0.5s ease;
+  transition: 0.2s ease;
   transform: translate(20px);
   background-color: #FFF;
 }

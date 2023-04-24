@@ -4,15 +4,17 @@ import './SearchForm.css';
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 function SearchForm({ handleSearch, onFilter, shortMovies }) {
   const [ inputValue, setInputValue ] = useState('')
-  let textSearchMovies = 'Результат последнего поиска: ' + localStorage.getItem('textSearchMovies')
-  if (textSearchMovies === `Результат последнего поиска: null`) {
-    textSearchMovies = ('')
-  }
-  let textSearchSavedMovies = 'Результат последнего поиска: ' + localStorage.getItem('textSearchSavedMovies')
-  if (textSearchSavedMovies === `Результат последнего поиска: null`) {
-    textSearchSavedMovies = ('')
-  }
   const location = useLocation()
+
+  let textSearchMovies = localStorage.getItem('textSearchMovies')
+  if (textSearchMovies === null) {
+    textSearchMovies = ('Фильм')
+  }
+
+  let textSearchSavedMovies = localStorage.getItem('textSearchSavedMovies')
+  if (textSearchSavedMovies === null) {
+    textSearchSavedMovies = ('Фильм')
+  }
 
   function handleInputValue (e) {
     setInputValue(e.target.value)
@@ -37,33 +39,30 @@ function SearchForm({ handleSearch, onFilter, shortMovies }) {
         {location.pathname === '/movies' ? 
           <form className="search-form__form" onSubmit={handleSubmitMovies}>
             <input
-              placeholder="Фильм"
+              placeholder={textSearchMovies}
               className="search-form__input"
               value={inputValue || ''}
               onChange={handleInputValue}
               required
             />
-            <span className="search-form__span">{textSearchMovies}</span>
             <button className="search-form__button" type="submit">Найти</button>
           </form>
         : <></>}
         {(location.pathname ==='/saved-movies' ? 
           <form className="search-form__form" onSubmit={handleSaveSavedMovie}>
             <input
-              placeholder="Фильм"
+              placeholder={textSearchSavedMovies}
               className="search-form__input"
               value={inputValue || ''}
               onChange={handleInputValue}
               required
             />
-            <span className="search-form__span">{textSearchSavedMovies}</span>
             <button className="search-form__button" type="submit">Найти</button>
           </form>
         : <></>
         )}
         <FilterCheckbox onFilter={onFilter} isMovieFilter={shortMovies}/>
       </div>
-      
     </section>
   );
 };

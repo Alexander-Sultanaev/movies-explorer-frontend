@@ -53,11 +53,6 @@
   box-shadow: 0 0 0 0.1rem rgba(158, 158, 158, 0.25);
   cursor: auto;
 }
-.search-form__span {
-  color: #FFF;
-  position: absolute;
-  top: 60px;
-}
 .search-form__button {
   padding: 0;
   margin-right: 20px;
@@ -114,9 +109,6 @@
   }
   .search-form__input {
     margin-left: 19px;
-  }
-  .search-form__span {
-    top: 150px;
   }
   .search-form__button {
     margin-right: 19px;
