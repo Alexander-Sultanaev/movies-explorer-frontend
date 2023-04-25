@@ -1,6 +1,8 @@
 import { useState, useEffect, useCallback } from "react";
 import { useLocation } from "react-router-dom";
 import MoviesCard from "../MoviesCard/MoviesCard";
+import { Full_Screen, Small_Screen, Button_More_Movies_Full_Screen, Button_More_Movies_Small_Screen,
+  Card_Display_Full_Screen, Card_Display_Middle_Screen, Card_Display_Small_Screen} from "../../../utils/constants"
 import './MoviesCardList.css';
 
 function MoviesCardList({ isSavedMoviesPage, movies, savedMovies, onSave, onDelete, messageSavedMoviesPage, messageMoviesPage }) {
@@ -32,20 +34,20 @@ function MoviesCardList({ isSavedMoviesPage, movies, savedMovies, onSave, onDele
   }
 
   function handleMoreClick() {
-    if (screenWidth > 1217) {
-      setShowMovieList(movies.slice(0, showMovieList.length + 3))
+    if (screenWidth > Full_Screen) {
+      setShowMovieList(movies.slice(0, showMovieList.length + Button_More_Movies_Full_Screen))
     } else {
-      setShowMovieList(movies.slice(0, showMovieList.length + 2))
+      setShowMovieList(movies.slice(0, showMovieList.length + Button_More_Movies_Small_Screen))
     }
   }
 
   useEffect(() => {
-    if (screenWidth > 1217) {
-      setShowMovieList(movies.slice(0, 12))
-    } else if (screenWidth > 480 && screenWidth <= 1217) {
-      setShowMovieList(movies.slice(0, 8));
-    } else if (screenWidth <= 480) {
-      setShowMovieList(movies.slice(0, 5));
+    if (screenWidth > Full_Screen) {
+      setShowMovieList(movies.slice(0, Card_Display_Full_Screen))
+    } else if (screenWidth > Small_Screen && screenWidth <= Full_Screen) {
+      setShowMovieList(movies.slice(0, Card_Display_Middle_Screen));
+    } else if (screenWidth <= Small_Screen) {
+      setShowMovieList(movies.slice(0, Card_Display_Small_Screen));
     } else {
       setShowMovieList(movies);
     }

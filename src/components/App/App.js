@@ -106,6 +106,7 @@ function App() {
         })
         .catch(err => {
           console.log(err)
+          alert(err)
         })
         .finally(() => {
           tokenCheck()
@@ -118,6 +119,7 @@ function App() {
         })
         .catch((err) => {
           console.log(err)
+          alert(err)
         })
     }
   }
@@ -133,6 +135,7 @@ function App() {
       })
       .catch(error => {
         console.log(error)
+        alert(error)
       })
       .finally(() => {
         tokenCheck()

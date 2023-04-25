@@ -6,6 +6,8 @@ import MoviesCardList from "./MoviesCardList/MoviesCardList.js";
 import Footer from "../Footer/Footer.js";
 import moviesApi from "../../utils/MoviesApi.js";
 import Preloader from "../Preloader/Preloader.js";
+import { Short_Duration } from "../../utils/constants"
+
 function Movies({ loggedIn, isLoading, onLoading, savedMovies, onSave}) {
   const [ shortMovies, setShortMovies, ] = useState(false);
   const [ initialMovies, setInitialMovies ] = useState([]);
@@ -15,7 +17,7 @@ function Movies({ loggedIn, isLoading, onLoading, savedMovies, onSave}) {
   const location = useLocation();
 
   const filterShortMovies = (movies) => {
-    return movies.filter(movie => movie.duration < 40);
+    return movies.filter(movie => movie.duration < Short_Duration);
   }
   
   const filterMovies = (movies, userQuery, shortMoviesCheckbox) => {

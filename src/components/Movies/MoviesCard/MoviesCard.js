@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import './MoviesCard.css';
-
+import { Minutes_In_Hour } from "../../../utils/constants"
 function MoviesCard({ movie, onSave, onDelete, savedMovies }) {
   const location = useLocation();
   const [ isSaved, setIsSaved ] = useState(false);
@@ -27,8 +27,8 @@ function MoviesCard({ movie, onSave, onDelete, savedMovies }) {
     onDelete(movie)
   }
   function movieDuration(n) {
-    let m = n % 60
-    let h = (n -m) / 60
+    let m = n % Minutes_In_Hour
+    let h = (n -m) / Minutes_In_Hour
     if (h === 0){
       return `${m}м`
     } else {

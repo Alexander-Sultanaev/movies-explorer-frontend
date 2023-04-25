@@ -5,6 +5,7 @@ import SearchForm from "../Movies/SearchForm/SearchForm";
 import Footer from "../Footer/Footer";
 import MoviesCardList from "../Movies/MoviesCardList/MoviesCardList";
 import Preloader from "../Preloader/Preloader";
+import { Short_Duration } from "../../utils/constants"
 
 const SavedMovies = ({ loggedIn, savedMovies, isLoading, onDelete, errorMessage }) => {
   const [ shortMovies, setShortMovies ] = useState(false);
@@ -15,7 +16,7 @@ const SavedMovies = ({ loggedIn, savedMovies, isLoading, onDelete, errorMessage 
   const location = useLocation();
 
   const filterShortMovies = (movies) => {
-    return movies.filter(movie => movie.duration < 40);
+    return movies.filter(movie => movie.duration < Short_Duration);
   }
   
   const filterMovies = (movies, userQuery, shortMoviesCheckbox) => {
