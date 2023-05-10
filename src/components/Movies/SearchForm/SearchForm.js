@@ -34,9 +34,9 @@ function SearchForm({ handleSearch, onFilter, shortMovies }) {
   
   return(
     <section className="search-form">
-      <div className="search-form__container">
-        <div className="search-form__icon"></div>
-        {location.pathname === '/movies' ? 
+        {location.pathname === '/movies' ?
+        <div className="search-form__container">
+          <div className="search-form__icon"></div>
           <form className="search-form__form" onSubmit={handleSubmitMovies}>
             <input
               placeholder={textSearchMovies}
@@ -47,8 +47,12 @@ function SearchForm({ handleSearch, onFilter, shortMovies }) {
             />
             <button className="search-form__button" type="submit">Найти</button>
           </form>
+          <FilterCheckbox onFilter={onFilter} isMovieFilter={shortMovies}/>
+        </div>
         : <></>}
         {(location.pathname ==='/saved-movies' ? 
+        <div className="search-form__container">
+          <div className="search-form__icon"></div>
           <form className="search-form__form" onSubmit={handleSaveSavedMovie}>
             <input
               placeholder={textSearchSavedMovies}
@@ -59,10 +63,10 @@ function SearchForm({ handleSearch, onFilter, shortMovies }) {
             />
             <button className="search-form__button" type="submit">Найти</button>
           </form>
+          <FilterCheckbox onFilter={onFilter} isMovieFilter={shortMovies}/>
+        </div>
         : <></>
         )}
-        <FilterCheckbox onFilter={onFilter} isMovieFilter={shortMovies}/>
-      </div>
     </section>
   );
 };

@@ -125,4 +125,10 @@
   .movies-card__image {
     width: 290px;
   }
+  .movies-card__button {
+    z-index: 3;
+  }
+  .movies-card__button-delete {
+    z-index: 3;
+  }
 }
